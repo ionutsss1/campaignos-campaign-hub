@@ -70,10 +70,7 @@ export function ChooseGame() {
               <Badge icon="bolt">{g.xp}</Badge>
             </div>
             <div className="poster__body">
-              <span className="poster__mech">
-                <Icon name={g.icon} />
-                {g.mechanic}
-              </span>
+              <span className="poster__mech">{g.mechanic}</span>
               <h3 className="display poster__title">
                 {g.title} {g.italic && <em>{g.italic}</em>}
               </h3>
@@ -81,11 +78,8 @@ export function ChooseGame() {
                 <div className="poster__more-inner">
                   <p className="poster__desc">{g.description}</p>
                   <ul className="poster__facts">
-                    {g.facts.map(([icon, text]) => (
-                      <li key={text}>
-                        <Icon name={icon} />
-                        {text}
-                      </li>
+                    {g.facts.map(([, text]) => (
+                      <li key={text}>{text}</li>
                     ))}
                   </ul>
                   <div className="poster__ctas">

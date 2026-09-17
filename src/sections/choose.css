@@ -69,7 +69,15 @@
 .poster__scrim {
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgb(11 11 15 / 0.35) 0%, transparent 30%, rgb(11 11 15 / 0.2) 55%, rgb(11 11 15 / 0.92) 100%);
+  background: linear-gradient(
+    180deg,
+    rgb(11 11 15 / 0.4) 0%,
+    transparent 22%,
+    transparent 38%,
+    rgb(11 11 15 / 0.55) 58%,
+    rgb(11 11 15 / 0.88) 78%,
+    rgb(11 11 15 / 0.97) 100%
+  );
   transition: opacity 0.8s var(--ease);
 }
 
@@ -109,18 +117,11 @@
 }
 
 .poster__mech {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
   font-size: 12px;
-  font-weight: 500;
-  letter-spacing: 0.14em;
+  font-weight: 600;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: rgb(242 241 238 / 0.75);
-}
-
-.poster__mech .icon {
-  font-size: 16px;
+  color: var(--text);
 }
 
 .poster__title {
@@ -169,8 +170,9 @@
 .poster__desc {
   margin: 6px 0 0;
   max-width: 440px;
-  color: var(--muted);
+  color: rgb(242 241 238 / 0.86);
   font-size: 15px;
+  line-height: 1.55;
 }
 
 .poster__facts {
@@ -179,19 +181,22 @@
   padding: 0;
   display: flex;
   flex-wrap: wrap;
-  gap: 8px 20px;
-  font-size: 13px;
-  color: var(--muted);
-}
-
-.poster__facts li {
-  display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 6px 0;
+  font-size: 13px;
+  font-weight: 500;
+  color: rgb(242 241 238 / 0.8);
 }
 
-.poster__facts .icon {
-  font-size: 16px;
+.poster__facts li + li::before {
+  content: '';
+  display: inline-block;
+  width: 3px;
+  height: 3px;
+  margin: 0 12px 2px;
+  border-radius: 50%;
+  background: currentColor;
+  vertical-align: middle;
 }
 
 .poster__ctas {
@@ -205,8 +210,8 @@
   align-items: center;
   gap: 6px;
   font-size: 13px;
-  font-weight: 500;
-  color: rgb(242 241 238 / 0.8);
+  font-weight: 600;
+  color: var(--text);
   transition:
     opacity 0.4s var(--ease),
     transform 0.6s var(--ease);
