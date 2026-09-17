@@ -38,7 +38,7 @@ export function MysteryDrop() {
         const split = SplitText.create('.mystery__title', { type: 'lines', mask: 'lines', linesClass: 'split-line' })
         const tl = gsap.timeline({ scrollTrigger: { trigger: '.mystery', start: 'top 65%', once: true } })
         tl.from(split.lines, { yPercent: 115, duration: 1.4, stagger: 0.12 })
-          .from('.mystery .eyebrow, .mystery__desc', { y: 20, autoAlpha: 0, stagger: 0.1 }, 0.1)
+          .from('.mystery__desc', { y: 20, autoAlpha: 0, stagger: 0.1 }, 0.1)
           .from('.unit', { y: 40, autoAlpha: 0, stagger: 0.08, duration: 1.2 }, 0.35)
           .from('.mystery__actions > *', { y: 20, autoAlpha: 0, stagger: 0.08 }, 0.6)
           .from('.hof', { y: 40, autoAlpha: 0, duration: 1.3 }, 0.7)
@@ -61,7 +61,6 @@ export function MysteryDrop() {
       </div>
 
       <div className="mystery__content">
-        <p className="eyebrow">06 — Mystery drop</p>
         <h2 className="display mystery__title">
           Something new,
           <br />

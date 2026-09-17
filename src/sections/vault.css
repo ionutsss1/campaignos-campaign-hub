@@ -37,17 +37,17 @@
   border-radius: 50%;
 }
 
-.vault__dot--legendary {
+.vault__dot--grand {
   background: var(--legendary);
 }
-.vault__dot--epic {
-  background: var(--epic);
-}
-.vault__dot--rare {
+.vault__dot--draw {
   background: var(--rare);
 }
-.vault__dot--common {
-  background: var(--common);
+.vault__dot--guaranteed {
+  background: var(--ok);
+}
+.vault__dot--pass {
+  background: var(--epic);
 }
 
 .vault__grid {
@@ -72,14 +72,17 @@
   transition: box-shadow 0.8s var(--ease);
 }
 
-.prize--legendary {
+.prize--grand {
   --c: var(--legendary);
 }
-.prize--epic {
-  --c: var(--epic);
-}
-.prize--rare {
+.prize--draw {
   --c: var(--rare);
+}
+.prize--guaranteed {
+  --c: var(--ok);
+}
+.prize--pass {
+  --c: var(--epic);
 }
 
 .prize::after {
@@ -137,8 +140,8 @@
   gap: 8px;
 }
 
-.prize__top .badge--glass {
-  background: rgb(11 11 15 / 0.4);
+.prize__meta {
+  color: rgb(242 241 238 / 0.82);
 }
 
 .prize__body {

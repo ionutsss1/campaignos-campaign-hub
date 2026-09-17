@@ -20,10 +20,11 @@ export function BrandPass() {
         const split = revealTitle('.pass .section-title')
         gsap.from('.pass__panel', { y: 30, autoAlpha: 0, scrollTrigger: { trigger: '.pass__panel', start: 'top 85%', once: true } })
         gsap.from('.tier', {
-          y: 40,
+          y: 32,
           autoAlpha: 0,
           stagger: 0.05,
           duration: 1.2,
+          clearProps: 'transform',
           scrollTrigger: { trigger: '.pass__track', start: 'top 85%', once: true },
         })
         gsap.from('.pass__rail-fill', {
@@ -85,7 +86,6 @@ export function BrandPass() {
     <section id="pass" className="section pass" ref={root}>
       <div className="section-header">
         <div className="section-header__lead">
-          <p className="eyebrow">03 — Brand Pass</p>
           <SectionTitle lead="Every entry" italic="moves you forward." />
         </div>
         <div className="pass__panel glass">

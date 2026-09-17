@@ -347,23 +347,44 @@ a {
   --c: var(--accent);
 }
 
-.badge--legendary {
+.badge--grand {
   --c: var(--legendary);
 }
-.badge--epic {
-  --c: var(--epic);
-}
-.badge--rare {
+.badge--draw {
   --c: var(--rare);
 }
-.badge--common {
-  --c: var(--common);
+.badge--guaranteed {
+  --c: var(--ok);
+}
+.badge--pass {
+  --c: var(--epic);
 }
 
+/* Over photography: dark frosted base, brighter label, stronger outline. */
 .badge--on-image {
+  padding: 6px 12px 6px 10px;
+  font-weight: 600;
+  font-size: 12.5px;
+  color: color-mix(in srgb, var(--c) 55%, #fff);
   background:
-    linear-gradient(color-mix(in srgb, var(--c) 18%, transparent), color-mix(in srgb, var(--c) 18%, transparent)),
-    rgb(11 11 15 / 0.55);
+    linear-gradient(color-mix(in srgb, var(--c) 16%, transparent), color-mix(in srgb, var(--c) 16%, transparent)),
+    rgb(11 11 15 / 0.74);
+  border-color: color-mix(in srgb, var(--c) 60%, transparent);
+  box-shadow: 0 6px 20px rgb(0 0 0 / 0.35);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  backdrop-filter: blur(18px) saturate(140%);
+}
+
+.badge--on-image .icon {
+  font-size: 15px;
+  color: var(--c);
+}
+
+.badge--glass.badge--on-image {
+  --c: var(--text);
+  color: var(--text);
+  background: rgb(11 11 15 / 0.74);
+  border-color: rgb(255 255 255 / 0.22);
 }
 
 .live-dot {

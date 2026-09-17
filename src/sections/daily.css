@@ -100,14 +100,19 @@
 .quests {
   margin-top: 64px;
   display: grid;
-  grid-template-columns: 400px 1fr;
+  grid-template-columns: minmax(320px, 400px) 1fr;
   gap: 48px;
-  align-items: start;
+  align-items: stretch;
 }
 
 .quests__intro {
-  display: grid;
+  display: flex;
+  flex-direction: column;
   gap: 18px;
+}
+
+.quests__intro .quests__reward {
+  margin-top: auto;
 }
 
 .quests__intro p {
@@ -165,22 +170,59 @@
   border-color: transparent;
 }
 
+/* Fills the column below the stepper so both quest columns end level. */
+.quests__intro .quests__reward {
+  flex: 1;
+  margin-top: 8px;
+}
+
 .quests__reward {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 20px;
+  border-radius: 20px;
+  background:
+    radial-gradient(120% 90% at 100% 0%, color-mix(in srgb, var(--legendary) 16%, transparent), transparent 60%),
+    var(--glass);
+}
+
+.quests__reward-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.quests__reward-body {
+  display: grid;
+  gap: 8px;
+}
+
+.quests__reward-title {
+  margin: 0;
+  font-size: 34px;
+  line-height: 1;
+}
+
+.quests__reward-body p {
+  font-size: 14px;
+}
+
+.quests__reward-progress {
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 14px 16px;
-  border-radius: 16px;
+  font-size: 13px;
 }
 
-.quests__reward p {
-  font-size: 14px;
-  font-weight: 600;
+.quests__reward-progress .track {
+  flex: 1;
+  height: 3px;
 }
 
-.quests__reward p.muted {
-  font-size: 12px;
-  font-weight: 400;
+.quests__reward-progress .track__bar {
+  background: var(--legendary);
 }
 
 .quests__reward-icon {
@@ -198,15 +240,16 @@
   margin: 0;
   padding: 0;
   display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 12px;
 }
 
 .mission {
   display: flex;
-  align-items: center;
-  gap: 16px;
-  padding: 14px 16px 14px 14px;
-  border-radius: 16px;
+  flex-direction: column;
+  gap: 14px;
+  padding: 18px;
+  border-radius: 18px;
   background: var(--panel);
   border: 1px solid var(--glass-stroke);
   transition:
@@ -217,8 +260,24 @@
 
 .mission:hover {
   background: rgb(255 255 255 / 0.07);
-  translate: 6px 0;
+  translate: 0 -4px;
   border-color: rgb(255 255 255 / 0.24);
+}
+
+.mission__head,
+.mission__foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.mission__foot {
+  margin-top: auto;
+}
+
+.mission__foot .mission__progress {
+  flex: 1;
 }
 
 .mission__icon {
@@ -231,17 +290,11 @@
   background: var(--glass);
 }
 
-.mission__body {
-  flex: 1;
-  min-width: 0;
-  display: grid;
-  gap: 10px;
-}
-
 .mission__title {
   margin: 0;
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 600;
+  line-height: 1.35;
 }
 
 .mission__progress {
@@ -264,7 +317,11 @@
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  font-size: 14px;
+  padding: 5px 10px;
+  border-radius: 999px;
+  background: var(--glass);
+  border: 1px solid var(--glass-stroke);
+  font-size: 13px;
   white-space: nowrap;
 }
 
@@ -320,8 +377,8 @@
 }
 
 @media (max-width: 640px) {
-  .mission__xp {
-    display: none;
+  .missions {
+    grid-template-columns: 1fr;
   }
   .daily__timer {
     font-size: 22px;

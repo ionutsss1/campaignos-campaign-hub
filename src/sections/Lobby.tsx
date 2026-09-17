@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react'
 import { Badge, Button, Icon } from '../components/ui'
-import { featured, images } from '../data'
+import { featured, images, videos } from '../data'
 import { gsap, MOTION_OK, ScrollTrigger, SplitText, useGSAP } from '../lib/gsap'
 import { pad2, useCountdown, useTweenedNumber } from '../lib/hooks'
 import { useScrollTo } from '../lib/lenis'
@@ -13,6 +13,7 @@ export function Lobby() {
   const root = useRef<HTMLElement>(null)
   const { xp, claimedToday } = usePlayer()
   const scrollTo = useScrollTo()
+  const [reduceMotion] = useState(() => window.matchMedia('(prefers-reduced-motion: reduce)').matches)
   const [drawAt] = useState(() => Date.now() + (9 * 3600 + 41 * 60 + 12) * 1000)
   const draw = useCountdown(drawAt)
   const xpRef = useTweenedNumber(xp, whole)
@@ -25,14 +26,14 @@ export function Lobby() {
         const split = SplitText.create('.lobby__title', { type: 'lines', mask: 'lines', linesClass: 'split-line' })
         const tl = gsap.timeline({ defaults: { ease: 'expo.out' } })
         tl.from('.lobby__art', { autoAlpha: 0, duration: 1.6, ease: 'power2.out' }, 0)
-          .from('.lobby__art img', { scale: 1.2, duration: 2.8, ease: 'power3.out' }, 0)
+          .from('.lobby__media', { scale: 1.2, duration: 2.8, ease: 'power3.out' }, 0)
           .from('.lobby__eyebrow > *', { y: 14, autoAlpha: 0, stagger: 0.08, duration: 1 }, 0.5)
           .from(split.lines, { yPercent: 115, duration: 1.5, stagger: 0.12 }, 0.55)
           .from(['.lobby__desc', '.lobby__ctas'], { y: 24, autoAlpha: 0, stagger: 0.1, duration: 1.2 }, 0.95)
           .from('.lobby__widgets > *', { x: 48, autoAlpha: 0, stagger: 0.1, duration: 1.3 }, 1)
           .from('.lobby__scroll', { autoAlpha: 0, duration: 1 }, 1.5)
 
-        gsap.to('.lobby__art img', {
+        gsap.to('.lobby__media', {
           yPercent: 14,
           scale: 1.06,
           ease: 'none',
@@ -54,7 +55,12 @@ export function Lobby() {
   return (
     <section id="lobby" className="lobby" ref={root}>
       <div className="lobby__art" aria-hidden="true">
-        <img src={images.lobby} alt="" fetchPriority="high" />
+        {reduceMotion ? (
+          <img className="lobby__media" src={images.lobby} alt="" fetchPriority="high" />
+        ) : (
+          // Veo 3 clip generated from the key art; seamless 9s loop, muted for autoplay.
+          <video className="lobby__media" src={videos.hero} poster={images.heroPoster} autoPlay muted loop playsInline preload="auto" />
+        )}
         <div className="lobby__scrim" />
       </div>
 

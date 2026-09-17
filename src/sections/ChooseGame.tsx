@@ -43,7 +43,6 @@ export function ChooseGame() {
     <section id="games" className="section choose" ref={root}>
       <div className="section-header">
         <div className="section-header__lead">
-          <p className="eyebrow">01 — Choose your game</p>
           <SectionTitle lead="Five ways to play," italic="one season." />
         </div>
         <div className="choose__aside">

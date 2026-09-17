@@ -47,7 +47,9 @@
   overflow-x: auto;
   scrollbar-width: none;
   cursor: grab;
-  padding: 0 var(--pad) 8px;
+  /* Room below the cards so reveal/hover offsets are never clipped by the scroller. */
+  padding: 0 var(--pad) 48px;
+  margin-bottom: -40px;
   user-select: none;
 }
 

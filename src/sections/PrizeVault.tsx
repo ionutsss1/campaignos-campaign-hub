@@ -1,16 +1,16 @@
 import { useLayoutEffect, useRef, useState } from 'react'
-import { Button, Icon, RarityBadge, SectionTitle } from '../components/ui'
-import { prizes, type Rarity } from '../data'
+import { Button, Icon, PrizeBadge, SectionTitle } from '../components/ui'
+import { prizes, type PrizeKind } from '../data'
 import { Flip, gsap, MOTION_OK, revealTitle, useGSAP } from '../lib/gsap'
 import './vault.css'
 
-type Filter = 'all' | Rarity
+type Filter = 'all' | PrizeKind
 const filters: { id: Filter; label: string }[] = [
-  { id: 'all', label: 'All' },
-  { id: 'legendary', label: 'Legendary' },
-  { id: 'epic', label: 'Epic' },
-  { id: 'rare', label: 'Rare' },
-  { id: 'common', label: 'Common' },
+  { id: 'all', label: 'All prizes' },
+  { id: 'grand', label: 'Grand prize' },
+  { id: 'draw', label: 'Daily & weekly' },
+  { id: 'guaranteed', label: 'Guaranteed' },
+  { id: 'pass', label: 'Pass rewards' },
 ]
 
 export function PrizeVault() {
@@ -30,6 +30,7 @@ export function PrizeVault() {
           autoAlpha: 0,
           stagger: 0.1,
           duration: 1.5,
+          clearProps: 'transform',
           scrollTrigger: { trigger: '.vault__grid', start: 'top 80%', once: true },
         })
         gsap.from('.prize__img', {
@@ -69,10 +70,9 @@ export function PrizeVault() {
     <section id="prizes" className="section vault" ref={root}>
       <div className="section-header">
         <div className="section-header__lead">
-          <p className="eyebrow">05 — Prize vault</p>
           <SectionTitle lead="What you can" italic="actually win." />
         </div>
-        <div className="vault__filters glass" role="tablist" aria-label="Filter prizes by rarity">
+        <div className="vault__filters glass" role="tablist" aria-label="Filter prizes">
           {filters.map((f) => (
             <button
               key={f.id}
@@ -90,19 +90,19 @@ export function PrizeVault() {
 
       <div className={`vault__grid vault__grid--${filter}`} ref={grid}>
         {prizes.map((p) => {
-          const hidden = filter !== 'all' && p.rarity !== filter
+          const hidden = filter !== 'all' && p.kind !== filter
           return (
             <article
               key={p.id}
-              className={`prize prize--${p.rarity} ${p.featured && filter === 'all' ? 'prize--featured' : ''} ${p.locked ? 'is-locked' : ''}`}
+              className={`prize prize--${p.kind} ${p.featured && filter === 'all' ? 'prize--featured' : ''} ${p.locked ? 'is-locked' : ''}`}
               style={{ display: hidden ? 'none' : undefined }}
               data-flip-id={p.id}
             >
               <img className="prize__img" src={p.image} alt="" loading="lazy" />
               <div className="prize__scrim" />
               <div className="prize__top">
-                <RarityBadge rarity={p.rarity} onImage />
-                <span className="badge badge--glass">
+                <PrizeBadge kind={p.kind} label={p.label} onImage />
+                <span className="badge badge--glass badge--on-image">
                   <Icon name={p.locked ? 'lock' : 'inventory_2'} />
                   {p.stock}
                 </span>

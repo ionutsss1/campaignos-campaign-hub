@@ -1,6 +1,6 @@
 import type { ButtonHTMLAttributes, CSSProperties, ReactNode } from 'react'
 import { useMagnetic } from '../lib/hooks'
-import type { Rarity } from '../data'
+import type { PrizeKind } from '../data'
 
 export function Icon({ name, className = '', style }: { name: string; className?: string; style?: CSSProperties }) {
   return (
@@ -30,10 +30,15 @@ export function Button({ variant = 'solid', size = 'l', icon, iconStart, magneti
   )
 }
 
-const rarityLabel: Record<Rarity, string> = { legendary: 'Legendary', epic: 'Epic', rare: 'Rare', common: 'Common' }
+const kindIcon: Record<PrizeKind, string> = { grand: 'emoji_events', draw: 'autorenew', guaranteed: 'verified', pass: 'workspace_premium' }
 
-export function RarityBadge({ rarity, onImage = false }: { rarity: Rarity; onImage?: boolean }) {
-  return <span className={`badge badge--${rarity} ${onImage ? 'badge--on-image' : ''}`}>{rarityLabel[rarity]}</span>
+export function PrizeBadge({ kind, label, onImage = false }: { kind: PrizeKind; label: string; onImage?: boolean }) {
+  return (
+    <span className={`badge badge--${kind} ${onImage ? 'badge--on-image' : ''}`}>
+      <Icon name={kindIcon[kind]} />
+      {label}
+    </span>
+  )
 }
 
 export function Badge({ icon, children, tone = 'glass' }: { icon?: string; children: ReactNode; tone?: 'glass' | 'live' | 'accent' }) {

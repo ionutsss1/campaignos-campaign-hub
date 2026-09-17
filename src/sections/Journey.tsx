@@ -43,17 +43,16 @@ export function Journey() {
       const mm = gsap.matchMedia()
       mm.add(MOTION_OK, () => {
         const split = revealTitle('.journey .section-title')
-        const done = root.current?.querySelector<SVGPathElement>('.journey__path--done')
-        if (done) {
-          const len = done.getTotalLength()
-          gsap.set(done, { strokeDasharray: len, strokeDashoffset: len })
-        }
-        const tl = gsap.timeline({
-          scrollTrigger: { trigger: '.journey__stage', start: 'top 70%', end: 'center 45%', scrub: 1 },
+        gsap.from('.journey__map img', {
+          scale: 1.15,
+          ease: 'none',
+          scrollTrigger: { trigger: '.journey__stage', start: 'top bottom', end: 'bottom top', scrub: true },
         })
-        tl.from('.journey__map img', { scale: 1.15, ease: 'none', duration: 1 }, 0)
-          .to('.journey__path--done', { strokeDashoffset: 0, ease: 'none', duration: 0.7 }, 0)
-          .from('.journey__path--next', { autoAlpha: 0, duration: 0.3, ease: 'none' }, 0.6)
+        gsap
+          .timeline({ scrollTrigger: { trigger: '.journey__stage', start: 'top 65%', once: true } })
+          // Reveal the cleared path left-to-right with a clip rect (resolution-independent, unlike dash offsets).
+          .from('.journey__reveal', { attr: { width: 0 }, duration: 2.4, ease: 'power2.inOut' }, 0.2)
+          .from('.journey__path--next', { autoAlpha: 0, duration: 1.2, ease: 'power1.out' }, 1.6)
         gsap.from('.stop', {
           autoAlpha: 0,
           scale: 0.6,
@@ -95,7 +94,6 @@ export function Journey() {
       <div className="section journey__head">
         <div className="section-header">
           <div className="section-header__lead">
-            <p className="eyebrow">02 — Season journey</p>
             <SectionTitle lead="Autumn Fresh," italic="stop by stop." />
           </div>
           <div className="journey__progress">
@@ -113,8 +111,13 @@ export function Journey() {
 
       <div className="journey__stage">
         <svg className="journey__svg" viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="none" aria-hidden="true">
+          <defs>
+            <clipPath id="journey-reveal">
+              <rect className="journey__reveal" x="0" y="-100" width={W} height={H + 200} />
+            </clipPath>
+          </defs>
           <path className="journey__path journey__path--next" d={paths.next} />
-          <path className="journey__path journey__path--done" d={paths.done} />
+          <path className="journey__path journey__path--done" d={paths.done} clipPath="url(#journey-reveal)" />
         </svg>
 
         {stops.map((s) => (

@@ -1,4 +1,6 @@
 import gift from './assets/img/gift.webp'
+import heroPoster from './assets/img/hero-poster.webp'
+import heroLoop from './assets/video/hero-loop.mp4'
 import lobby from './assets/img/lobby.webp'
 import map from './assets/img/map.webp'
 import posterBuy from './assets/img/poster-buy.webp'
@@ -11,9 +13,11 @@ import prizePersil from './assets/img/prize-persil.webp'
 import prizePerwoll from './assets/img/prize-perwoll.webp'
 import prizeTrip from './assets/img/prize-trip.webp'
 
-export const images = { lobby, map, gift }
+export const images = { lobby, map, gift, heroPoster }
+export const videos = { hero: heroLoop }
 
-export type Rarity = 'legendary' | 'epic' | 'rare' | 'common'
+/** Prize families in campaign language (grand prize draw, recurring draws, guaranteed gifts, Brand Pass rewards). */
+export type PrizeKind = 'grand' | 'draw' | 'guaranteed' | 'pass'
 
 export const featured = {
   season: 'Season 03',
@@ -157,7 +161,8 @@ export const prizes: {
   id: string
   title: string
   italic?: string
-  rarity: Rarity
+  kind: PrizeKind
+  label: string
   stock: string
   meta: [string, string][]
   image: string
@@ -168,7 +173,8 @@ export const prizes: {
     id: 'trip',
     title: 'VIP trip to Copenhagen',
     italic: 'Fashion Week',
-    rarity: 'legendary',
+    kind: 'grand',
+    label: 'Grand prize',
     stock: '1 left',
     meta: [
       ['event', 'Draw on 30 Oct'],
@@ -177,13 +183,14 @@ export const prizes: {
     image: prizeTrip,
     featured: true,
   },
-  { id: 'beauty', title: 'Beauty glow kit', rarity: 'epic', stock: '50 left', meta: [['event', 'Daily draw']], image: prizeBeauty },
-  { id: 'persil', title: 'Persil care bundle', rarity: 'rare', stock: '250 left', meta: [['event', 'Every Friday']], image: prizePersil },
-  { id: 'bref', title: 'Free Bref sample', rarity: 'common', stock: '642 left', meta: [['local_shipping', 'Ships in 3 days']], image: posterTry },
+  { id: 'beauty', title: 'Beauty glow kit', kind: 'draw', label: 'Daily prize', stock: '50 left', meta: [['event', 'Drawn every day']], image: prizeBeauty },
+  { id: 'persil', title: 'Persil care bundle', kind: 'draw', label: 'Weekly prize', stock: '250 left', meta: [['event', 'Drawn every Friday']], image: prizePersil },
+  { id: 'bref', title: 'Free Bref sample', kind: 'guaranteed', label: 'Guaranteed', stock: '642 left', meta: [['local_shipping', 'Ships in 3 days']], image: posterTry },
   {
     id: 'perwoll',
     title: 'Perwoll care kit',
-    rarity: 'legendary',
+    kind: 'pass',
+    label: 'Pass reward',
     stock: 'Tier 4',
     meta: [['lock', 'Unlocks at Tier 4']],
     image: prizePerwoll,

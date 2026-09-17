@@ -24,10 +24,12 @@ export function DailyQuests() {
           autoAlpha: 0,
           stagger: 0.07,
           duration: 1.3,
+          clearProps: 'transform',
           scrollTrigger: { trigger: '.days', start: 'top 85%', once: true },
         })
         gsap.from('.mission', {
-          x: 40,
+          y: 32,
+          clearProps: 'transform',
           autoAlpha: 0,
           stagger: 0.08,
           duration: 1.2,
@@ -72,7 +74,6 @@ export function DailyQuests() {
     <section id="quests" className="section daily" ref={root}>
       <div className="section-header">
         <div className="section-header__lead">
-          <p className="eyebrow">04 — Daily &amp; quests</p>
           <SectionTitle lead="Come back tomorrow," italic="it pays." />
         </div>
         <div className="daily__claim">
@@ -116,12 +117,23 @@ export function DailyQuests() {
             ))}
           </div>
           <div className="quests__reward glass">
-            <span className="quests__reward-icon">
-              <Icon name="workspace_premium" />
-            </span>
-            <div>
-              <p className="muted">Day 2 reward</p>
-              <p>Double XP weekend pass</p>
+            <div className="quests__reward-top">
+              <span className="quests__reward-icon">
+                <Icon name="workspace_premium" />
+              </span>
+              <span className="badge badge--glass">Day 2 reward</span>
+            </div>
+            <div className="quests__reward-body">
+              <h4 className="display quests__reward-title">
+                Double XP <em>weekend</em>
+              </h4>
+              <p className="muted">Finish today’s missions to earn double XP on everything from Friday to Sunday.</p>
+            </div>
+            <div className="quests__reward-progress">
+              <div className="track">
+                <div className="track__bar" style={{ width: '50%' }} />
+              </div>
+              <span className="num muted">2 / 4 missions</span>
             </div>
           </div>
         </div>
@@ -131,11 +143,16 @@ export function DailyQuests() {
             const done = m.done >= m.total
             return (
               <li key={m.title} className={`mission ${done ? 'is-done' : ''}`}>
-                <span className="mission__icon">
-                  <Icon name={done ? 'task_alt' : m.icon} />
-                </span>
-                <div className="mission__body">
-                  <p className="mission__title">{m.title}</p>
+                <div className="mission__head">
+                  <span className="mission__icon">
+                    <Icon name={done ? 'task_alt' : m.icon} />
+                  </span>
+                  <span className="num mission__xp">
+                    <Icon name="bolt" />+{m.xp} XP
+                  </span>
+                </div>
+                <p className="mission__title">{m.title}</p>
+                <div className="mission__foot">
                   <div className="mission__progress">
                     <div className="track">
                       <div className="track__bar" style={{ width: `${Math.max(3, (m.done / m.total) * 100)}%` }} />
@@ -144,13 +161,10 @@ export function DailyQuests() {
                       {m.done} / {m.total}
                     </span>
                   </div>
+                  <button className={`icon-btn mission__go ${done ? '' : 'glass'}`} aria-label={done ? 'Completed' : `Go to ${m.title}`}>
+                    <Icon name={done ? 'check' : 'arrow_forward'} />
+                  </button>
                 </div>
-                <span className="num mission__xp">
-                  <Icon name="bolt" />+{m.xp} XP
-                </span>
-                <button className={`icon-btn mission__go ${done ? '' : 'glass'}`} aria-label={done ? 'Completed' : `Go to ${m.title}`}>
-                  <Icon name={done ? 'check' : 'arrow_forward'} />
-                </button>
               </li>
             )
           })}
