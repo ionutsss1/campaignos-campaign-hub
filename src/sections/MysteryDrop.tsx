@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { Button, Icon } from '../components/ui'
-import { images, leaders, winners } from '../data'
+import { images, leaders, videos, winners } from '../data'
 import { gsap, MOTION_OK, SplitText, useGSAP } from '../lib/gsap'
 import { pad2, useCountdown } from '../lib/hooks'
 import { usePlayer } from '../lib/player'
@@ -20,6 +20,7 @@ function Digit({ value, unit }: { value: string; unit: string }) {
 export function MysteryDrop() {
   const root = useRef<HTMLElement>(null)
   const { reminded, toggleReminder } = usePlayer()
+  const [reduceMotion] = useState(() => window.matchMedia('(prefers-reduced-motion: reduce)').matches)
   const [dropAt] = useState(() => Date.now() + ((2 * 24 + 14) * 3600 + 9 * 60 + 33) * 1000)
   const t = useCountdown(dropAt)
   const [offset, setOffset] = useState(0)
@@ -42,10 +43,11 @@ export function MysteryDrop() {
           .from('.unit', { y: 40, autoAlpha: 0, stagger: 0.08, duration: 1.2 }, 0.35)
           .from('.mystery__actions > *', { y: 20, autoAlpha: 0, stagger: 0.08 }, 0.6)
           .from('.hof', { y: 40, autoAlpha: 0, duration: 1.3 }, 0.7)
+        // Gentle drift upward (not down) so the gift never slides under the winners panel.
         gsap.fromTo(
-          '.mystery__art img',
-          { yPercent: -8, scale: 1.12 },
-          { yPercent: 8, scale: 1, ease: 'none', scrollTrigger: { trigger: '.mystery', start: 'top bottom', end: 'bottom top', scrub: true } },
+          '.mystery__media',
+          { yPercent: 3, scale: 1.08 },
+          { yPercent: -3, scale: 1.02, ease: 'none', scrollTrigger: { trigger: '.mystery', start: 'top bottom', end: 'bottom top', scrub: true } },
         )
         return () => split.revert()
       })
@@ -56,7 +58,12 @@ export function MysteryDrop() {
   return (
     <section id="mystery" className="mystery" ref={root}>
       <div className="mystery__art" aria-hidden="true">
-        <img src={images.gift} alt="" loading="lazy" />
+        {reduceMotion ? (
+          <img className="mystery__media" src={images.gift} alt="" loading="lazy" />
+        ) : (
+          // Veo 3 clip from the gift still, played forward and back as a seamless 14s loop.
+          <video className="mystery__media" src={videos.gift} poster={images.giftPoster} autoPlay muted loop playsInline preload="metadata" />
+        )}
         <div className="mystery__beam" />
       </div>
 

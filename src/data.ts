@@ -1,6 +1,8 @@
 import gift from './assets/img/gift.webp'
 import heroPoster from './assets/img/hero-poster.webp'
 import heroLoop from './assets/video/hero-loop.mp4'
+import giftLoop from './assets/video/gift-loop.mp4'
+import giftPoster from './assets/img/gift-poster.webp'
 import lobby from './assets/img/lobby.webp'
 import map from './assets/img/map.webp'
 import posterBuy from './assets/img/poster-buy.webp'
@@ -13,8 +15,8 @@ import prizePersil from './assets/img/prize-persil.webp'
 import prizePerwoll from './assets/img/prize-perwoll.webp'
 import prizeTrip from './assets/img/prize-trip.webp'
 
-export const images = { lobby, map, gift, heroPoster }
-export const videos = { hero: heroLoop }
+export const images = { lobby, map, gift, heroPoster, giftPoster }
+export const videos = { hero: heroLoop, gift: giftLoop }
 
 /** Prize families in campaign language (grand prize draw, recurring draws, guaranteed gifts, Brand Pass rewards). */
 export type PrizeKind = 'grand' | 'draw' | 'guaranteed' | 'pass'
