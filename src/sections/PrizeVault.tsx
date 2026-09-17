@@ -1,7 +1,7 @@
 import { useLayoutEffect, useRef, useState } from 'react'
 import { Button, Icon, PrizeBadge, SectionTitle } from '../components/ui'
 import { prizes, type PrizeKind } from '../data'
-import { Flip, gsap, MOTION_OK, revealTitle, useGSAP } from '../lib/gsap'
+import { Flip, gsap, MOTION_OK, revealTitle, ScrollTrigger, useGSAP } from '../lib/gsap'
 import './vault.css'
 
 type Filter = 'all' | PrizeKind
@@ -45,25 +45,44 @@ export function PrizeVault() {
     { scope: root },
   )
 
+  const prevHeight = useRef(0)
+
   const choose = (next: Filter) => {
-    if (next === filter) return
-    if (grid.current) flipState.current = Flip.getState(grid.current.querySelectorAll('.prize'))
+    if (next === filter || !grid.current) return
+    flipState.current = Flip.getState(grid.current.querySelectorAll('.prize'))
+    prevHeight.current = grid.current.offsetHeight
     setFilter(next)
   }
 
   useLayoutEffect(() => {
     const state = flipState.current
-    if (!state || !grid.current) return
+    const el = grid.current
+    if (!state || !el) return
     flipState.current = null
-    Flip.from(state, {
-      duration: 0.9,
-      ease: 'expo.inOut',
-      scale: true,
-      absolute: true,
-      targets: grid.current.querySelectorAll('.prize'),
-      onEnter: (els) => gsap.fromTo(els, { autoAlpha: 0, scale: 0.9 }, { autoAlpha: 1, scale: 1, duration: 0.8, delay: 0.2 }),
-      onLeave: (els) => gsap.to(els, { autoAlpha: 0, scale: 0.9, duration: 0.5 }),
-    })
+    // Tween the grid's height alongside the Flip and clip it meanwhile, so absolutely-positioned
+    // cards never spill over the section below while the layout changes.
+    const to = el.offsetHeight
+    gsap.set(el, { height: prevHeight.current, overflow: 'hidden' })
+    gsap
+      .timeline({
+        onComplete: () => {
+          gsap.set(el, { clearProps: 'height,overflow' })
+          ScrollTrigger.refresh()
+        },
+      })
+      .to(el, { height: to, duration: 0.9, ease: 'expo.inOut' }, 0)
+      .add(
+        Flip.from(state, {
+          duration: 0.9,
+          ease: 'expo.inOut',
+          scale: true,
+          absolute: true,
+          targets: el.querySelectorAll('.prize'),
+          onEnter: (els) => gsap.fromTo(els, { autoAlpha: 0, scale: 0.94 }, { autoAlpha: 1, scale: 1, duration: 0.8, delay: 0.2 }),
+          onLeave: (els) => gsap.to(els, { autoAlpha: 0, scale: 0.94, duration: 0.4 }),
+        }),
+        0,
+      )
   }, [filter])
 
   return (

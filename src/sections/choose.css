@@ -22,7 +22,12 @@
   display: flex;
   gap: 1px;
   height: clamp(560px, 46vw, 680px);
-  background: var(--line);
+}
+
+/* Hairline dividers live on the posters (clipped with them during the reveal) instead of a container
+   background, which showed as a grey band while the posters were still wiping in. */
+.poster + .poster {
+  border-left: 1px solid var(--line);
 }
 
 .poster {
@@ -231,9 +236,11 @@
   .choose__aside .section-aside {
     text-align: left;
   }
+  .poster + .poster {
+    border-left: 0;
+  }
   .posters {
     height: auto;
-    background: none;
     gap: 12px;
     padding: 0 var(--pad);
     overflow-x: auto;
