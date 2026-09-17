@@ -1,0 +1,128 @@
+.footer {
+  margin-top: 32px;
+  padding: 40px var(--pad) 36px;
+  border-top: 1px solid var(--line);
+  display: grid;
+  gap: 28px;
+}
+
+.footer__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 20px 32px;
+}
+
+.footer__row--bottom {
+  font-size: 13px;
+}
+
+.footer__logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.footer__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 28px;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.footer__links a {
+  position: relative;
+  transition: color 0.4s var(--ease);
+}
+
+.footer__links a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -3px;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.6s var(--ease);
+}
+
+.footer__links a:hover {
+  color: var(--text);
+}
+
+.footer__links a:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+.brandkit {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  padding: 4px 4px 4px 14px;
+  border-radius: 999px;
+  font-size: 13px;
+}
+
+.brandkit__label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-right: 8px;
+  color: var(--muted);
+}
+
+.brandkit__label .icon {
+  font-size: 16px;
+}
+
+.brandkit__opt {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  transition:
+    background-color 0.5s var(--ease),
+    color 0.4s;
+}
+
+.brandkit__opt.is-active {
+  background: rgb(255 255 255 / 0.12);
+  color: var(--text);
+}
+
+.brandkit__swatch {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.brandkit__swatch--a {
+  background: #9aaaf0;
+}
+
+.brandkit__swatch--b {
+  background: #e9a0a8;
+}
+
+.footer__powered {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--dim);
+}
+
+.footer__powered img {
+  height: 18px;
+  width: auto;
+  opacity: 0.85;
+}

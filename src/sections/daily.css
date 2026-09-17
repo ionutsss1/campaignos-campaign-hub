@@ -1,0 +1,329 @@
+.daily__claim {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.daily__next {
+  display: grid;
+  gap: 6px;
+  justify-items: end;
+}
+
+.daily__timer {
+  margin: 0;
+  font-size: 30px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+.days {
+  list-style: none;
+  margin: 56px 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 12px;
+  perspective: 900px;
+}
+
+.day {
+  height: 176px;
+  padding: 16px 10px 18px;
+  border-radius: 18px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--panel);
+  border: 1px solid var(--glass-stroke);
+  transform-style: preserve-3d;
+  transition:
+    translate 0.7s var(--ease),
+    background-color 0.5s var(--ease),
+    border-color 0.6s var(--ease);
+}
+
+.day:hover {
+  translate: 0 -6px;
+}
+
+.day__label {
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.day__icon {
+  font-size: 30px;
+}
+
+.day__reward {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.day--claimed .day__icon {
+  color: var(--ok);
+}
+
+.day--today {
+  background: var(--glass);
+}
+
+.day--today:not(.day--claimed) {
+  border-color: color-mix(in srgb, var(--accent) 60%, transparent);
+  box-shadow: 0 24px 60px -24px color-mix(in srgb, var(--accent) 55%, transparent);
+}
+
+.day--today:not(.day--claimed) .day__label {
+  color: var(--accent);
+}
+
+.day--today:not(.day--claimed) .day__icon {
+  font-size: 40px;
+  animation: nudge 2.4s var(--ease-soft) infinite;
+}
+
+@keyframes nudge {
+  50% {
+    transform: translateY(-4px) scale(1.06);
+  }
+}
+
+.day--locked .day__icon,
+.day--locked .day__reward {
+  color: var(--dim);
+}
+
+.quests {
+  margin-top: 64px;
+  display: grid;
+  grid-template-columns: 400px 1fr;
+  gap: 48px;
+  align-items: start;
+}
+
+.quests__intro {
+  display: grid;
+  gap: 18px;
+}
+
+.quests__intro p {
+  margin: 0;
+}
+
+.quests__title {
+  font-size: 46px;
+}
+
+.stepper {
+  display: flex;
+  align-items: center;
+}
+
+.step {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--glass);
+  border: 1px solid var(--glass-stroke);
+  color: var(--muted);
+  font-size: 15px;
+}
+
+.step + .step {
+  margin-left: 24px;
+}
+
+.step + .step::before {
+  content: '';
+  position: absolute;
+  right: 100%;
+  width: 24px;
+  height: 1px;
+  background: rgb(255 255 255 / 0.15);
+}
+
+.step.is-done {
+  color: var(--ok);
+  background: color-mix(in srgb, var(--ok) 14%, transparent);
+  border-color: color-mix(in srgb, var(--ok) 50%, transparent);
+}
+
+.step.is-done .icon {
+  font-size: 18px;
+}
+
+.step.is-current {
+  background: var(--solid);
+  color: var(--bg);
+  border-color: transparent;
+}
+
+.quests__reward {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  border-radius: 16px;
+}
+
+.quests__reward p {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.quests__reward p.muted {
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.quests__reward-icon {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  color: var(--legendary);
+  background: color-mix(in srgb, var(--legendary) 12%, transparent);
+}
+
+.missions {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 12px;
+}
+
+.mission {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 16px 14px 14px;
+  border-radius: 16px;
+  background: var(--panel);
+  border: 1px solid var(--glass-stroke);
+  transition:
+    background-color 0.5s var(--ease),
+    translate 0.7s var(--ease),
+    border-color 0.5s var(--ease);
+}
+
+.mission:hover {
+  background: rgb(255 255 255 / 0.07);
+  translate: 6px 0;
+  border-color: rgb(255 255 255 / 0.24);
+}
+
+.mission__icon {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: var(--glass);
+}
+
+.mission__body {
+  flex: 1;
+  min-width: 0;
+  display: grid;
+  gap: 10px;
+}
+
+.mission__title {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.mission__progress {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+}
+
+.mission__progress .track {
+  flex: 1;
+  height: 3px;
+}
+
+.mission__progress .track__bar {
+  background: var(--text);
+}
+
+.mission__xp {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+.mission__xp .icon {
+  font-size: 16px;
+  color: var(--accent);
+}
+
+.mission__go {
+  flex: none;
+  width: 40px;
+  height: 40px;
+  border: 0;
+}
+
+.mission.is-done .mission__icon {
+  color: var(--ok);
+}
+
+.mission.is-done .track__bar {
+  background: var(--ok);
+}
+
+.mission.is-done .mission__go {
+  color: var(--ok);
+  background: color-mix(in srgb, var(--ok) 14%, transparent);
+}
+
+@media (max-width: 1100px) {
+  .quests {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 900px) {
+  .days {
+    grid-template-columns: none;
+    grid-auto-flow: column;
+    grid-auto-columns: 112px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    margin-left: calc(var(--pad) * -1);
+    margin-right: calc(var(--pad) * -1);
+    padding: 8px var(--pad);
+  }
+  .daily__claim {
+    width: 100%;
+    justify-content: space-between;
+  }
+  .daily__next {
+    justify-items: start;
+  }
+}
+
+@media (max-width: 640px) {
+  .mission__xp {
+    display: none;
+  }
+  .daily__timer {
+    font-size: 22px;
+  }
+}

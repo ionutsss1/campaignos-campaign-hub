@@ -1,0 +1,355 @@
+.journey {
+  position: relative;
+  margin-top: clamp(40px, 6vw, 80px);
+  overflow: clip;
+}
+
+.journey__map {
+  position: absolute;
+  inset: 0;
+}
+
+.journey__map img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.85;
+}
+
+.journey__map::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, var(--bg) 0%, rgb(11 11 15 / 0.35) 28%, rgb(11 11 15 / 0.35) 72%, var(--bg) 100%),
+    rgb(11 11 15 / 0.3);
+}
+
+.journey__head {
+  position: relative;
+  z-index: 2;
+}
+
+.journey__progress {
+  display: grid;
+  justify-items: end;
+  gap: 12px;
+}
+
+.journey__count {
+  margin: 0;
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  font-size: 14px;
+}
+
+.journey__count .display {
+  font-size: 44px;
+}
+
+.journey__segments {
+  display: flex;
+  gap: 4px;
+}
+
+.seg {
+  width: 40px;
+  height: 3px;
+  border-radius: 2px;
+  background: rgb(255 255 255 / 0.16);
+}
+
+.seg--done {
+  background: rgb(242 241 238 / 0.8);
+}
+
+.seg--live {
+  background: var(--accent);
+}
+
+.journey__stage {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  aspect-ratio: 1440 / 700;
+  margin-top: -140px;
+}
+
+.journey__svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.journey__path {
+  fill: none;
+  vector-effect: non-scaling-stroke;
+}
+
+.journey__path--done {
+  stroke: rgb(242 241 238 / 0.6);
+  stroke-width: 2;
+}
+
+.journey__path--next {
+  stroke: rgb(242 241 238 / 0.28);
+  stroke-width: 1.5;
+  stroke-dasharray: 6 8;
+}
+
+.stop {
+  position: absolute;
+  z-index: 2;
+  width: 200px;
+  translate: -50% 0;
+  display: grid;
+  justify-items: center;
+  gap: 12px;
+  border: 0;
+  padding: 0;
+  background: none;
+  cursor: pointer;
+  text-align: center;
+}
+
+.stop__marker {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  margin-top: -24px;
+  border-radius: 50%;
+  background: var(--glass);
+  border: 1px solid var(--glass-stroke);
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
+  transition:
+    transform 0.7s var(--ease),
+    background-color 0.5s var(--ease);
+}
+
+.stop__marker .icon {
+  font-size: 22px;
+}
+
+.stop:hover .stop__marker {
+  transform: scale(1.12);
+  background: rgb(255 255 255 / 0.16);
+}
+
+.stop--cleared .stop__marker {
+  border-color: color-mix(in srgb, var(--ok) 50%, transparent);
+  color: var(--ok);
+}
+
+.stop--locked .stop__marker {
+  color: var(--muted);
+}
+
+.stop--mystery .stop__marker {
+  background: color-mix(in srgb, var(--legendary) 12%, transparent);
+  border-color: color-mix(in srgb, var(--legendary) 50%, transparent);
+  color: var(--legendary);
+}
+
+.stop--live .stop__marker {
+  width: 64px;
+  height: 64px;
+  margin-top: -32px;
+  background: var(--solid);
+  border: 0;
+  color: var(--bg);
+}
+
+.stop--live {
+  width: 300px;
+}
+
+.stop--live .stop__marker .icon {
+  font-size: 30px;
+}
+
+.stop--live .stop__marker::before,
+.stop--live .stop__marker::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 1px solid rgb(242 241 238 / 0.45);
+  animation: ring 2.6s var(--ease-soft) infinite;
+}
+
+.stop--live .stop__marker::after {
+  animation-delay: 1.3s;
+}
+
+@keyframes ring {
+  from {
+    transform: scale(1);
+    opacity: 0.9;
+  }
+  to {
+    transform: scale(2.1);
+    opacity: 0;
+  }
+}
+
+.stop__text {
+  display: grid;
+  gap: 3px;
+  padding: 6px 10px;
+  border-radius: 12px;
+  background: radial-gradient(closest-side, rgb(11 11 15 / 0.55), transparent);
+}
+
+.stop__title {
+  font-size: 21px;
+  line-height: 1.05;
+}
+
+.stop--live .stop__title {
+  font-size: 28px;
+}
+
+.stop--locked .stop__title {
+  color: var(--muted);
+}
+
+.stop__meta {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.stop--live .stop__meta {
+  color: var(--accent);
+}
+
+.stop--mystery .stop__meta {
+  color: var(--legendary);
+}
+
+.journey__popover {
+  position: absolute;
+  z-index: 3;
+  translate: 56px -170px;
+}
+
+.journey__popover-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 20px 12px 12px;
+  border-radius: 20px;
+  animation: float 6s var(--ease-soft) infinite;
+}
+
+@keyframes float {
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+.journey__popover img {
+  width: 92px;
+  height: 92px;
+  border-radius: 12px;
+  object-fit: cover;
+  object-position: 65% center;
+}
+
+.journey__popover-body {
+  display: grid;
+  gap: 8px;
+  justify-items: start;
+}
+
+.journey__popover-body p {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.journey__popover-badges {
+  display: flex;
+  gap: 6px;
+}
+
+.journey__legend {
+  position: absolute;
+  left: var(--pad);
+  bottom: 40px;
+  display: flex;
+  gap: 20px;
+  padding: 10px 20px;
+  border-radius: 999px;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.journey__legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.journey__legend .icon {
+  font-size: 16px;
+}
+
+/* Vertical timeline on small screens */
+@media (max-width: 900px) {
+  .journey__progress {
+    justify-items: start;
+  }
+  .journey__stage {
+    aspect-ratio: auto;
+    margin-top: 40px;
+    padding: 0 var(--pad) 80px;
+    display: grid;
+    gap: 0;
+  }
+  .journey__svg,
+  .journey__popover,
+  .journey__legend {
+    display: none;
+  }
+  .stop {
+    position: relative;
+    left: auto !important;
+    top: auto !important;
+    translate: none;
+    width: 100% !important;
+    grid-template-columns: 48px 1fr;
+    justify-items: start;
+    align-items: start;
+    text-align: left;
+    gap: 16px;
+    padding-bottom: 28px;
+  }
+  .stop::before {
+    content: '';
+    position: absolute;
+    left: 23.5px;
+    top: 48px;
+    bottom: 0;
+    width: 1px;
+    background: rgb(242 241 238 / 0.25);
+  }
+  .stop--mystery::before {
+    display: none;
+  }
+  .stop__marker,
+  .stop--live .stop__marker {
+    margin-top: 0;
+    width: 48px;
+    height: 48px;
+  }
+  .stop__text {
+    background: none;
+    padding: 4px 0 0;
+  }
+}

@@ -1,0 +1,264 @@
+.pass {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.pass .section-header {
+  padding: 0 var(--pad);
+}
+
+.pass__panel {
+  width: min(420px, 100%);
+  padding: 20px 24px;
+  border-radius: 20px;
+  display: grid;
+  gap: 14px;
+}
+
+.pass__panel-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.pass__tier {
+  margin: 0;
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  font-size: 14px;
+}
+
+.pass__tier .display {
+  font-size: 38px;
+}
+
+.pass__small {
+  font-size: 13px;
+}
+
+.pass__viewport {
+  position: relative;
+  margin-top: 64px;
+}
+
+.pass__track {
+  overflow-x: auto;
+  scrollbar-width: none;
+  cursor: grab;
+  padding: 0 var(--pad) 8px;
+  user-select: none;
+}
+
+.pass__track::-webkit-scrollbar {
+  display: none;
+}
+
+.pass__track.is-dragging {
+  cursor: grabbing;
+}
+
+.pass__inner {
+  position: relative;
+  padding-top: 84px;
+  padding-bottom: 12px;
+}
+
+.pass__rail {
+  position: absolute;
+  inset: 54px 0 auto;
+  height: 1px;
+  background: rgb(255 255 255 / 0.12);
+}
+
+.pass__rail-fill {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 1px;
+  background: rgb(242 241 238 / 0.6);
+  transform-origin: left center;
+}
+
+.pass__tick {
+  position: absolute;
+  top: -3px;
+  width: 7px;
+  height: 7px;
+  margin-left: -3.5px;
+  border-radius: 50%;
+  background: rgb(255 255 255 / 0.25);
+}
+
+.pass__tick.is-done {
+  background: rgb(242 241 238 / 0.8);
+}
+
+.pass__tick.is-chest {
+  background: var(--legendary);
+}
+
+.pass__tick.is-current {
+  background: var(--accent);
+  box-shadow: 0 0 0 5px color-mix(in srgb, var(--accent) 22%, transparent);
+}
+
+.pass__here {
+  position: absolute;
+  bottom: 14px;
+  translate: -50% 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: var(--solid);
+  color: var(--bg);
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.pass__here .icon {
+  font-size: 16px;
+}
+
+.pass__tiers {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: 14px;
+}
+
+.tier {
+  flex: none;
+  width: 128px;
+  height: 168px;
+  padding: 12px 10px 14px;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--panel);
+  border: 1px solid var(--glass-stroke);
+  transition:
+    translate 0.7s var(--ease),
+    background-color 0.5s var(--ease),
+    border-color 0.5s var(--ease);
+}
+
+.tier:hover {
+  translate: 0 -8px;
+  background: rgb(255 255 255 / 0.08);
+}
+
+.tier__top {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.tier__top .icon {
+  font-size: 14px;
+  color: var(--dim);
+}
+
+.tier__art {
+  display: grid;
+  place-items: center;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: rgb(255 255 255 / 0.06);
+  transition: transform 0.8s var(--ease);
+}
+
+.tier:hover .tier__art {
+  transform: scale(1.08) rotate(-6deg);
+}
+
+.tier__art .icon {
+  font-size: 30px;
+}
+
+.tier__reward {
+  font-size: 12px;
+  text-align: center;
+  color: var(--muted);
+}
+
+.tier--claimed .tier__top .icon {
+  color: var(--ok);
+}
+
+.tier--claimed .tier__art .icon {
+  opacity: 0.5;
+}
+
+.tier--current {
+  background: var(--glass);
+  border-color: color-mix(in srgb, var(--accent) 60%, transparent);
+  box-shadow: 0 18px 50px -20px color-mix(in srgb, var(--accent) 50%, transparent);
+}
+
+.tier--current .tier__top,
+.tier--current .tier__top .icon {
+  color: var(--accent);
+}
+
+.tier--current .tier__reward {
+  color: var(--text);
+}
+
+.tier--locked .tier__art .icon {
+  color: var(--dim);
+}
+
+.tier--chest {
+  border-color: color-mix(in srgb, var(--legendary) 45%, transparent);
+}
+
+.tier--chest .tier__art {
+  background: color-mix(in srgb, var(--legendary) 12%, transparent);
+}
+
+.tier--chest .tier__art .icon,
+.tier--chest .tier__top .icon {
+  color: var(--legendary);
+}
+
+.tier--chest .tier__reward {
+  color: var(--text);
+}
+
+.pass__fade {
+  position: absolute;
+  inset: 0 0 0 auto;
+  width: min(320px, 30vw);
+  background: linear-gradient(90deg, transparent, var(--bg));
+  pointer-events: none;
+}
+
+.pass__nav {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  padding: 24px var(--pad) 0;
+}
+
+@media (max-width: 640px) {
+  .pass__fade {
+    display: none;
+  }
+  .pass__panel-row .btn {
+    display: none;
+  }
+}

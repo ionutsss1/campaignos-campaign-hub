@@ -1,0 +1,254 @@
+.mystery {
+  position: relative;
+  margin-top: clamp(88px, 9vw, 128px);
+  padding: clamp(96px, 10vw, 160px) var(--pad) 48px;
+  overflow: clip;
+}
+
+.mystery__art {
+  position: absolute;
+  inset: 0;
+}
+
+.mystery__art img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 70% center;
+}
+
+.mystery__art::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgb(11 11 15 / 0.95) 0%, rgb(11 11 15 / 0.6) 40%, transparent 70%),
+    linear-gradient(180deg, var(--bg) 0%, transparent 22%, transparent 70%, var(--bg) 100%);
+}
+
+.mystery__beam {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: radial-gradient(40% 60% at 68% 20%, rgb(255 226 170 / 0.16), transparent 70%);
+  mix-blend-mode: screen;
+  animation: beam 7s var(--ease-soft) infinite;
+}
+
+@keyframes beam {
+  50% {
+    opacity: 0.45;
+  }
+}
+
+.mystery__content {
+  position: relative;
+  z-index: 2;
+  max-width: 780px;
+  display: grid;
+  gap: 28px;
+}
+
+.mystery__title {
+  font-size: clamp(56px, 7vw, 104px);
+  line-height: 0.9;
+}
+
+.mystery__desc {
+  margin: 0;
+  max-width: 520px;
+  color: var(--muted);
+  font-size: 17px;
+}
+
+.countdown {
+  display: flex;
+  gap: 12px;
+}
+
+.unit {
+  width: 118px;
+  height: 128px;
+  border-radius: 20px;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 2px;
+  overflow: hidden;
+}
+
+.unit__value {
+  font-size: 54px;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  animation: digit-in 0.7s var(--ease) both;
+}
+
+@keyframes digit-in {
+  from {
+    transform: translateY(40%);
+    opacity: 0;
+    filter: blur(4px);
+  }
+}
+
+.unit__label {
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.mystery__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 16px;
+}
+
+.mystery__early {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--legendary);
+}
+
+.mystery__early .icon {
+  font-size: 16px;
+}
+
+.hof {
+  position: relative;
+  z-index: 2;
+  margin-top: clamp(64px, 8vw, 120px);
+  padding: 24px 28px;
+  border-radius: 24px;
+  display: flex;
+  gap: 40px;
+  align-items: center;
+}
+
+.hof__col {
+  display: grid;
+  gap: 14px;
+}
+
+.hof__col--grow {
+  flex: 1;
+}
+
+.hof__head {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.hof__head .icon {
+  font-size: 16px;
+}
+
+.hof__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: 28px;
+}
+
+.winner,
+.leader {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  animation: winner-in 0.9s var(--ease) both;
+}
+
+.winner > span:last-child,
+.leader > span:last-child {
+  display: grid;
+  gap: 1px;
+}
+
+.winner .muted,
+.leader .muted {
+  font-size: 12px;
+}
+
+@keyframes winner-in {
+  from {
+    opacity: 0;
+    transform: translateX(-16px);
+  }
+}
+
+.winner__avatar {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  font-size: 12px;
+  font-weight: 600;
+  background: rgb(255 255 255 / 0.1);
+}
+
+.leader {
+  animation: none;
+}
+
+.leader__rank {
+  font-size: 32px;
+  color: var(--muted);
+}
+
+.leader__rank.is-first {
+  color: var(--legendary);
+}
+
+.hof__divider {
+  align-self: stretch;
+  width: 1px;
+  background: rgb(255 255 255 / 0.12);
+}
+
+@media (max-width: 1100px) {
+  .hof {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .hof__divider {
+    height: 1px;
+    width: auto;
+  }
+}
+
+@media (max-width: 640px) {
+  .mystery {
+    padding-top: 320px;
+  }
+  .mystery__art::after {
+    background: linear-gradient(180deg, var(--bg) 0%, transparent 20%, rgb(11 11 15 / 0.3) 40%, rgb(11 11 15 / 0.95) 62%, var(--bg) 100%);
+  }
+  .countdown {
+    gap: 8px;
+  }
+  .unit {
+    flex: 1;
+    width: auto;
+    height: 88px;
+    border-radius: 14px;
+  }
+  .unit__value {
+    font-size: 32px;
+  }
+  .unit__label {
+    font-size: 10px;
+  }
+  .hof__list {
+    flex-direction: column;
+    gap: 12px;
+  }
+}
